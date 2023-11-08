@@ -101,7 +101,64 @@ run the commands to make suggested changes in nav2.yaml and localisation.yaml fi
 
     $ sudo gedit localization.yaml
 
+## Controlling multiple robots with teleop ##
 
+#### velocity topics ####
+
+from teleop we have velocity output which is published in the topic /cmd_vel.
+
+But robots subscribe to namespaced topics (for eg /agent_0/cmd_vel).
+
+The package below helps to convert /cmd_vel topic to /agent_0/ cmd_vel,/agent_1/cmd_vel,/agent_2/cmd_vel,/agent_3/cmd_vel
+
+     https://github.com/swarmBots-ipa/multirobot_controller
+
+
+#### Ros domain ID #### 
+For relaying message to the robots we need to create a bridge between domain ID of computer and the robots. 
+
+add following line to the bashrc.
+         
+        export ROS_DOMAIN_ID=<any number between 0 and 101>
+
+this will be the computer's domain ID
+
+Set a domain ID for the robot as well (every robot should have its unique domain ID)
+
+for this go to bash setup as explained above. 
+
+ros setup ==> bash setup ==> ROS_DOMAIN_ID[]:(Domain ID for the robot)
+
+https://github.com/ros2/domain_bridge/tree/humble
+
+install the dependencies if workspace build gives an error.
+
+The package above will help create domain bridge between robots and computer. Modify the script in examples as per the need.
+
+Run the script in a terminal.
+
+
+### Autonomous formation of the robots ###
+
+use multirobot_formation package of the robots to create a 1x1.5 m rectangular formation of 4 robots.
+
+https://github.com/swarmBots-ipa/multirobot_formation.git
+
+to create a formation with real robots we also need to create a simulation of the real world scenario to give the goal poses.
+for that use multirobot_simulation package.
+
+https://github.com/swarmBots-ipa/multirobot_simulation.git
+
+
+- run nav2 in turtlebot's raspberrypi. 
+
+- every robot should have different domain ID. 
+
+- create a bridge for goal_pose topic. for every robot run the domain_bridge scripts in another terminal in remote pc.
+
+- finally run simulation and formation nodes.
+
+real robots will have same behaviour as simiulation
 
 
 
