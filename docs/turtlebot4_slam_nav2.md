@@ -18,7 +18,7 @@ goto irobot webpage ==> update ==> select humble ==> update
 ##
 
 ###  Properly source the bashrc
-![Alt text](image.png)
+![Alt text](/static/image.png)
 ##
 
 ### Enter or delete namespace from the robot
